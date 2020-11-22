@@ -1,4 +1,4 @@
-# CovalentDock3
+# CovalentDock
 
 legacy code forked from [here](https://code.google.com/archive/p/covalentdock/)
 
