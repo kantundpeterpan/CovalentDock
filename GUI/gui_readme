@@ -1,0 +1,12 @@
+The covalentdock gui is available NOW!
+
+**HOW TO USE**
+Make sure you have configured the environmental variables of AutodockTools, Amber Ambertools properly.
+Put cd_gui.py in the same folder together with covalentDock.
+DO MAKE ALL THE FILES EXECUTABLE (covalentGrid, covalentDock, preprocessing and the files in the scripts directory) BEFORE YOU RUN THE GUI.
+Use the buttons to choose your receptor,ligand and the center file, THEN input your task name into the entry, and notice that the task name MUST be in one word and contain ONLY nubmers or letters. This will MOVE and RENAME your input files. Simply press the "RUN!" button to do the docking automatically.
+
+**KNOWN ISSUES**
+May not be able to load environmental variables in some OS. For example, if you are using UBUNTU, your should put your environmental variables into the .profile file instead of the .bashrc file.
+Since it do the docking automatically, the parameters in the gpf or dpf file cannot be configured. This will be fixed in the following version.
+And since this GUI is still quite primitive it has many bugs, don't be surprised if it crashed. We'll make it better in the future.
