@@ -89,7 +89,7 @@ CLEANFILES = default_parameters.h
 
 AM_CFLAGS = -Wall -O3 # All warnings, Agressive optimization
 
-AM_CPPFLAGS = -Wall -O3 -I$(srcdir)/../autodock # All warnings, Agressive optimization
+AM_CPPFLAGS = -Wall -O3 -I$(srcdir)/../../autodock/src # All warnings, Agressive optimization
 AM_CPPFLAGS += -Wno-write-strings # increase compatibility with pre 4.x compilers for string handling
 
 # covalentGrid_CXXFLAGS = -Wall -O3 -ftree-vectorize # All warnings, Agressive optimization, GCC vectorization in Mac OS X
@@ -131,7 +131,7 @@ test : covalentGrid $(srcdir)/Tests/test_covalentGrid.py
 	cp $(srcdir)/Tests/*.dat  $$outputdir/Tests;\
 	cp $(srcdir)/Tests/*.pdbqt  $$outputdir/Tests;\
 	cp $(srcdir)/Tests/*.map*  $$outputdir/Tests;\
-	cd Tests ;  python ./test_covalentGrid.py -d . -e ../covalentGrid$(EXEEXT) -o .
+	cd Tests ;  python2 ./test_covalentGrid.py -d . -e ../covalentGrid$(EXEEXT) -o .
 #else
 #	@echo " "
 #	@echo "Python version 2.1 or higher needed for 'make test', but not found."
@@ -140,11 +140,11 @@ test : covalentGrid $(srcdir)/Tests/test_covalentGrid.py
 #endif
 
 
-main.o : $(srcdir)/../autodock/autocomm.h
+main.o : $(srcdir)/../../autodock/src/autocomm.h
 
-default_parameters.h : $(srcdir)/../autodock/paramdat2h.csh  $(srcdir)/../autodock/AD4_parameters.dat $(srcdir)/../autodock/AD4.1_bound.dat
+default_parameters.h : $(srcdir)/../../autodock/src/paramdat2h.csh  $(srcdir)/../../autodock/src/AD4_parameters.dat $(srcdir)/../../autodock/src/AD4.1_bound.dat
 	rm -f $@
-	csh $(srcdir)/../autodock/paramdat2h.csh $(srcdir)/../autodock/AD4_parameters.dat  $(srcdir)/../autodock/AD4.1_bound.dat > $@
+	csh $(srcdir)/../../autodock/src/paramdat2h.csh $(srcdir)/../../autodock/src/AD4_parameters.dat  $(srcdir)/../../autodock/src/AD4.1_bound.dat > $@
 
 # 2007-04-30 MP & GMM: this line is necessary to be able to compile read_parameter_library.o
 read_parameter_library.o : default_parameters.h

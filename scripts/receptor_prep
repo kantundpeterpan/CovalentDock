@@ -3,7 +3,7 @@
 filename=$1
 name=$(basename $filename | cut -f1 -d.)
 
-$ADT_HOME/bin/pythonsh $ADT_HOME/MGLToolsPckgs/AutoDockTools/Utilities24/prepare_receptor4.py -r ${name}.pdb -o ${name}_unbond.pdbqt
+$ADT_HOME/bin/python2 $ADT_HOME/MGLToolsPckgs/AutoDockTools/Utilities24/prepare_receptor4.py -r ${name}.pdb -o ${name}_unbond.pdbqt
 cp ${name}_unbond.pdbqt ${name}_bond.pdbqt
 
 # ATOM type mapping:

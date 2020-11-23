@@ -1,4 +1,4 @@
-source leaprc.ff99SB
+source oldff/leaprc.ff99SB
 source leaprc.gaff
 
 TEMP=loadmol2 temp.mol2
@@ -7,4 +7,4 @@ loadamberparams temp.frcmod
 saveoff TEMP temp.lib
 saveamberparm TEMP temp.prmtop temp.inpcrd
 
-quit
+quite

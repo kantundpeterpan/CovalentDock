@@ -158,7 +158,7 @@ def findAtom(filename):
                 if (i==mid) or (i==index):
                     bondAtom+=["%d %s %s %s %s %s\n" %(i,"%s%d" %(atomType[i-1],i),atomList[i-1][2],atomList[i-1][3],atomList[i-1][4],'C.3')]
                 else:
-                    if (atomList[i-1][1]=='DEL') or (atomList[i-1][1]=='Had') or (atomList[i-1][1]=='Dum'):
+                    if (atomList[i-1][1]=='HEL') or (atomList[i-1][1]=='HAD') or (atomList[i-1][1]=='OUM'):
                         bondAtom+=["%d %s %s %s %s %s\n" %(i,atomList[i-1][1],atomList[i-1][2],atomList[i-1][3],atomList[i-1][4],atomList[i-1][5])]
                     else:
                         bondAtom+=["%d %s %s %s %s %s\n" %(i,"%s%d" %(atomType[i-1],i),atomList[i-1][2],atomList[i-1][3],atomList[i-1][4],atomList[i-1][5])]
@@ -204,9 +204,9 @@ def findAtom(filename):
                     f_now.write("@<TRIPOS>ATOM\n")
                     for l in bondAtom:
                         f_now.write(l)
-                    f_now.write("%d %s %s\n" %(len(bondAtom)+1, "Had" ,aH))
-                    f_now.write("%d %s %s\n" %(len(bondAtom)+2, "Dum" ,aS.split(':')[0]))
-                    f_now.write("%d %s %s\n" %(len(bondAtom)+3, "DEL" ,aS.split(':')[1]))
+                    f_now.write("%d %s %s\n" %(len(bondAtom)+1, "HAD" ,aH))
+                    f_now.write("%d %s %s\n" %(len(bondAtom)+2, "OUM" ,aS.split(':')[0]))
+                    f_now.write("%d %s %s\n" %(len(bondAtom)+3, "HEL" ,aS.split(':')[1]))
                     f_now.write("@<TRIPOS>BOND\n")
                     for l in bondBond:
                         f_now.write(' '.join(l)+"\n")
@@ -254,7 +254,7 @@ def findAtom(filename):
 
             bondAtom=[]
             for i in range(1,len(atomList)+1):
-                if (atomList[i-1][1]=='DEL') or (atomList[i-1][1]=='Had') or (atomList[i-1][1]=='Dum'):
+                if (atomList[i-1][1]=='HEL') or (atomList[i-1][1]=='HAD') or (atomList[i-1][1]=='OUM'):
                     bondAtom+=["%d %s %s %s %s %s\n" %(i,atomList[i-1][1],atomList[i-1][2],atomList[i-1][3],atomList[i-1][4],atomList[i-1][5])]
                 else:
                     bondAtom+=["%d %s %s %s %s %s\n" %(i,"%s%d" %(atomType[i-1],i),atomList[i-1][2],atomList[i-1][3],atomList[i-1][4],atomList[i-1][5])]
@@ -282,9 +282,9 @@ def findAtom(filename):
             f_now.write("@<TRIPOS>ATOM\n")
             for l in bondAtom:
                 f_now.write(l)
-            f_now.write("%d %s %.4f %.4f %.4f H\n" %(atom_count+1, "Had" , add_H[0],add_H[1],add_H[2]))
-            f_now.write("%d %s %.4f %.4f %.4f O\n" %(atom_count+2, "Dum" , add_O[0],add_O[1],add_O[2]))
-            f_now.write("%d %s %.4f %.4f %.4f H\n" %(atom_count+3, "DEL" , add_OH[0],add_OH[1],add_OH[2]))
+            f_now.write("%d %s %.4f %.4f %.4f H\n" %(atom_count+1, "HAD" , add_H[0],add_H[1],add_H[2]))
+            f_now.write("%d %s %.4f %.4f %.4f O\n" %(atom_count+2, "OUM" , add_O[0],add_O[1],add_O[2]))
+            f_now.write("%d %s %.4f %.4f %.4f H\n" %(atom_count+3, "HEL" , add_OH[0],add_OH[1],add_OH[2]))
 
             f_now.write("@<TRIPOS>BOND\n")
             for l in bondBond:

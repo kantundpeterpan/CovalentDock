@@ -4,27 +4,30 @@ import Tkinter
 import tkFileDialog
 from Tkinter import *
 from tkFileDialog import askopenfilename
+from shutil import copyfile
+import os
 
 root = Tk()
 
 root.title("CDGUI")
-
 root.grid()
+
+cd = os.environ.get('CD_PATH')
+cg = os.environ.get('CG_PATH')
 
 #event of main button
 def OnButtonClick():
    
     #get the inputs and move them to the new folder
-    import os
     homedir = os.getcwd()    
     os.system("mkdir "+root.entry.get())
     newmol2name = homedir+"/"+root.entry.get()+"/"+root.entry.get()+"_ligand.mol2"
     #print(newmol2name)
     newpdbname = homedir+"/"+root.entry.get()+"/"+root.entry.get()+"_receptor.pdb"
     newcenter = homedir+"/"+root.entry.get()+"/"+"center"
-    os.rename(mol2name,newmol2name)
-    os.rename(pdbname,newpdbname)
-    os.rename(center,newcenter)
+    copyfile(mol2name,newmol2name)
+    copyfile(pdbname,newpdbname)
+    copyfile(center,newcenter)
     
     filename = os.environ.get('PYTHONSTARTUP')
     if filename and os.path.isfile(filename):
@@ -35,14 +38,14 @@ def OnButtonClick():
     os.chdir(homedir+"/"+root.entry.get())
     os.system("mkdir prep")
     os.chdir(homedir+"/"+root.entry.get()+"/prep")
-    os.system("cp "+homedir+"/script/* .")
-    os.chdir(homedir+"/"+root.entry.get())
+    os.system("cp "+homedir+"/../scripts/* .")
+    #os.chdir(homedir+"/"+root.entry.get())
     os.system(homedir+"/preprocessing "+root.entry.get())
     os.chdir(homedir+"/"+root.entry.get()+"/bond")
     print("Now runing covalentGrid,please wait...")
-    os.system("for name in $(ls *.gpf); do "+homedir+"/covalentGrid < ${name} >${name}.glg; done")
+    os.system("for name in $(ls *.gpf); do %scovalentGrid < ${name} >${name}.glg; done" % cg)
     print("Now runing covalentDock,please wait...")
-    os.system("for name in $(ls *.dpf); do "+homedir+"/covalentDock -p ${name}; done")
+    os.system("for name in $(ls *.dpf); do %scovalentDock -p ${name}; done" % cd)
     print("Job finished!")
    
 #def entry

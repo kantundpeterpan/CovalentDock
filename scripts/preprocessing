@@ -7,7 +7,7 @@ receptor=${name}_receptor.pdb
 mkdir prep
 cd prep
 #cp $CD_HOME/script/* .
-cp ~/B-bond/autodock/googlecode/covalentdock/scripts/* .
+cp ~/Software/covalentdock_legacy/scripts/* .
 cp ../${name}_ligand.mol2 .
 cp ../${name}_receptor.pdb .
 
@@ -20,8 +20,8 @@ cent=$(cat ../center)
 
 echo "Preparing for non-covalent docking files..."
 echo 'gridcenter '$cent > ref
-$ADT_HOME/bin/pythonsh $ADT_HOME/MGLToolsPckgs/AutoDockTools/Utilities24/prepare_gpf4.py -l ${name}_ligand_unbond.pdbqt -r ${name}_receptor_unbond.pdbqt -o ${name}_unbond.gpf -i ref >> out
-$ADT_HOME/bin/pythonsh $ADT_HOME/MGLToolsPckgs/AutoDockTools/Utilities24/prepare_dpf42.py -l ${name}_ligand_unbond.pdbqt -r ${name}_receptor_unbond.pdbqt -o ${name}_unbond.dpf -p ga_num_evals=5000000 >> out
+$ADT_HOME/bin/python2 $ADT_HOME/MGLToolsPckgs/AutoDockTools/Utilities24/prepare_gpf4.py -l ${name}_ligand_unbond.pdbqt -r ${name}_receptor_unbond.pdbqt -o ${name}_unbond.gpf -i ref >> out
+$ADT_HOME/bin/python2 $ADT_HOME/MGLToolsPckgs/AutoDockTools/Utilities24/prepare_dpf42.py -l ${name}_ligand_unbond.pdbqt -r ${name}_receptor_unbond.pdbqt -o ${name}_unbond.dpf -p ga_num_evals=5000000 >> out
 
 mkdir ../unbond
 cp ${name}_receptor_unbond.pdbqt ../unbond
@@ -48,7 +48,7 @@ do
 	body=$(basename $one | cut -f1 -d.)
 	rot=$(grep "active torsions" ${body}.pdbqt | tr -s [:blank:] | cut -f2 -d' ')
 	#$ADT_HOME/bin/pythonsh $ADT_HOME/MGLToolsPckgs/AutoDockTools/Utilities24/prepare_dpf42.py -l $one -r ${name}_receptor_bond.pdbqt -o ${body}.dpf -p ga_num_evals=1000>> out
-	$ADT_HOME/bin/pythonsh $ADT_HOME/MGLToolsPckgs/AutoDockTools/Utilities24/prepare_dpf42.py -l $one -r ${name}_receptor_bond.pdbqt -o ${body}.dpf -p ga_num_evals=$[2500000+${rot}*500000] >> out
+	$ADT_HOME/bin/python2 $ADT_HOME/MGLToolsPckgs/AutoDockTools/Utilities24/prepare_dpf42.py -l $one -r ${name}_receptor_bond.pdbqt -o ${body}.dpf -p ga_num_evals=$[2500000+${rot}*500000] >> out
 	if [ $(grep "V1$" ${body}.pdbqt | wc -l) -gt 0 ]; then echo "link V1 C" >> ${body}.dpf; fi
 	if [ $(grep "V2$" ${body}.pdbqt | wc -l) -gt 0 ]; then echo "link V2 C" >> ${body}.dpf; fi
 	cp $one ../bond
@@ -56,12 +56,12 @@ do
 done
 
 bond=$(head -n 1 process_ligand)
-$ADT_HOME/bin/pythonsh $ADT_HOME/MGLToolsPckgs/AutoDockTools/Utilities24/prepare_gpf4.py -l $bond -r ${name}_receptor_bond.pdbqt -o get_npts -i ref -d ../bond/ -p spacing=0.2 >> out
+$ADT_HOME/bin/python2 $ADT_HOME/MGLToolsPckgs/AutoDockTools/Utilities24/prepare_gpf4.py -l $bond -r ${name}_receptor_bond.pdbqt -o get_npts -i ref -d ../bond/ -p spacing=0.2 >> out
 n_x=$(grep '^npts' get_npts | tr -s [:blank:] | cut -f2 -d' ')
 n_y=$(grep '^npts' get_npts | tr -s [:blank:] | cut -f3 -d' ')
 n_z=$(grep '^npts' get_npts | tr -s [:blank:] | cut -f4 -d' ')
 echo 'npts '$[${n_x}*2]' '$[${n_y}*2]' '$[${n_z}*2] >> ref
-$ADT_HOME/bin/pythonsh $ADT_HOME/MGLToolsPckgs/AutoDockTools/Utilities24/prepare_gpf4.py -l $bond -r ${name}_receptor_bond.pdbqt -o ${name}_bond.gpf -i ref -d ../bond/ -p spacing=0.2 >> out
+$ADT_HOME/bin/python2 $ADT_HOME/MGLToolsPckgs/AutoDockTools/Utilities24/prepare_gpf4.py -l $bond -r ${name}_receptor_bond.pdbqt -o ${name}_bond.gpf -i ref -d ../bond/ -p spacing=0.2 >> out
 
 if [ $(grep "^receptor_types.*X0" ${name}_bond.gpf | wc -l) -gt 0 ]; then echo "anchor X0 SA" >> ${name}_bond.gpf; fi
 if [ $(grep "^receptor_types.*X1" ${name}_bond.gpf | wc -l) -gt 0 ]; then echo "anchor X1 OA" >> ${name}_bond.gpf; fi

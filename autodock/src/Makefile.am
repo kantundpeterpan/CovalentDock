@@ -427,7 +427,7 @@ covalentDock.html :
 
 check : test
 
-test : covalentDock $(srcdir)/Tests/test_covalentDock.py
+test : covalentDock $(srcdir)/../src/Tests/test_covalentDock.py
 #if HAVE_PYTHON
 	@echo " "
 	@echo "Running the Python test_covalentDock.py unit-tests on covalentDock"
@@ -441,7 +441,7 @@ test : covalentDock $(srcdir)/Tests/test_covalentDock.py
     cp $(srcdir)/Tests/*.dpf  $$outputdir/Tests;\
     cp $(srcdir)/Tests/*.pdbqt  $$outputdir/Tests;\
     cp $(srcdir)/Tests/*.map*  $$outputdir/Tests;\
-	cd Tests ;  python ./test_covalentDock.py -d . -e ../covalentDock$(EXEEXT) -o .
+	cd Tests ;  python2 ./test_covalentDock.py -d . -e ../covalentDock$(EXEEXT) -o .
 #else
 #	@echo " "
 #	@echo "Python version 2.1 or higher needed for 'make check', but not found."

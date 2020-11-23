@@ -67,21 +67,21 @@ def correctCord(basename):
     out_atom=[]
     out_atom_index=[]
     for i in range(0,len(ori_atom)):
-        if (ori_atom[i][1]!='DEL'):
+        if (ori_atom[i][1]!='HEL'): #DEL
             out_atom+=[[ori_atom[i][0],ori_atom[i][1],min_atom[i][2],min_atom[i][3],min_atom[i][4],ori_atom[i][5]]]
             out_atom_index+=[ori_atom[i][0]]
         else:
             continue
     lut=[]
     for i in range(0,len(ori_atom)):
-        if ori_atom[i][1]!='DEL':
+        if ori_atom[i][1]!='HEL': #DEL
             lut+=[out_atom_index.index(ori_atom[i][0])+1]
         else:
             lut+=[0]
 #    for line in out_atom:
 #        print line
-    DEL=[x[0] for x in ori_atom if x[1]=='DEL']
-    Had=filter(lambda x: x[1]=='Had', out_atom)
+    DEL=[x[0] for x in ori_atom if x[1]=='HEL'] #DEL
+    Had=filter(lambda x: x[1]=='HAD', out_atom) #Had
     Had_index=[x[0] for x in Had]
     #lut=[(x[0],"%d" %(out_atom.index(x)+1)) for x in out_atom]
     

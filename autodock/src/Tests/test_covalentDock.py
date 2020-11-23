@@ -20,7 +20,7 @@ from DlgParser import DlgParser
 #
 # Global variables
 
-autodock_executable = "../autodock4" # where the AutoDock executable resides
+autodock_executable = "../../build/covalentDock" # where the AutoDock executable resides
 dpf_directory = '.' # where the input DPF files reside
 test_output_directory = '.' # where the DLG files will be written
 

@@ -20,7 +20,7 @@ from string import split, strip
 #
 # Global variables
 
-autogrid_executable = "../autogrid4" # where the AutoGrid executable resides
+autogrid_executable = "../covalentGrid" # where the AutoGrid executable resides
 gpf_directory = '.' # where the input GPF files reside
 test_output_directory = '.' # where the GLG files will be written
 
